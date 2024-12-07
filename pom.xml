@@ -113,6 +113,13 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>  <!-- Asegúrate de usar la versión más reciente -->
+            <scope>provided</scope> <!-- Esto significa que Lombok se usa solo en tiempo de compilación -->
+        </dependency>
+
     </dependencies>
 
     <build>
