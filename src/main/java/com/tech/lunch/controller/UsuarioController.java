@@ -38,7 +38,7 @@ public class UsuarioController {
 
         // Validar el correo antes de continuar
         try {
-            usuario.validarCorreo(); // Llamamos al método de validación en la entidad Usuario
+            usuario.validarCorreo();
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST); // En caso de error, enviamos el mensaje
         }
