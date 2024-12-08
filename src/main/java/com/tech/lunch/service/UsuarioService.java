@@ -4,6 +4,7 @@ import com.tech.lunch.entity.Usuario;
 import com.tech.lunch.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -30,4 +31,8 @@ public class UsuarioService {
         usuarioRepository.deleteById(idInstitucional);
     }
 
+    // Método para obtener todos los usuarios
+    public List<Usuario> getAllUsuarios() {
+        return usuarioRepository.findAll();
+    }
 }

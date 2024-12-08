@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -18,10 +19,25 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    // Obtener todos los usuarios
+    @GetMapping
+    public ResponseEntity<List<Usuario>> getAllUsuarios() {
+        List<Usuario> usuarios = usuarioService.getAllUsuarios();
+        if (usuarios.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // No hay usuarios
+        }
+        return new ResponseEntity<>(usuarios, HttpStatus.OK); // Devuelve la lista de usuarios
+    }
+
     // Obtener un usuario por id
     @GetMapping("/{idInstitucional}")
-    public Usuario getUsuario(@PathVariable String idInstitucional) {
-        return usuarioService.getUsuarioById(idInstitucional);
+    public ResponseEntity<Usuario> getUsuario(@PathVariable String idInstitucional) {
+        Usuario usuario = usuarioService.getUsuarioById(idInstitucional);
+        if (usuario != null) {
+            return new ResponseEntity<>(usuario, HttpStatus.OK); // Usuario encontrado
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Usuario no encontrado
+        }
     }
 
     // Crear un nuevo usuario
@@ -50,14 +66,26 @@ public class UsuarioController {
 
     // Actualizar un usuario
     @PutMapping("/{idInstitucional}")
-    public Usuario updateUsuario(@PathVariable String idInstitucional, @RequestBody Usuario usuario) {
-        return usuarioService.updateUsuario(idInstitucional, usuario);
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable String idInstitucional, @RequestBody Usuario usuario) {
+        Usuario usuarioExistente = usuarioService.getUsuarioById(idInstitucional);
+        if (usuarioExistente != null) {
+            usuario.setIdInstitucional(idInstitucional);  // Mantener el mismo id
+            Usuario usuarioActualizado = usuarioService.updateUsuario(idInstitucional, usuario);
+            return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Si no se encuentra el usuario
+        }
     }
 
     // Eliminar un usuario
     @DeleteMapping("/{idInstitucional}")
-    public void deleteUsuario(@PathVariable String idInstitucional) {
-        usuarioService.deleteUsuario(idInstitucional);
+    public ResponseEntity<Void> deleteUsuario(@PathVariable String idInstitucional) {
+        Usuario usuarioExistente = usuarioService.getUsuarioById(idInstitucional);
+        if (usuarioExistente != null) {
+            usuarioService.deleteUsuario(idInstitucional);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // Usuario eliminado correctamente
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Usuario no encontrado
+        }
     }
 }
-
