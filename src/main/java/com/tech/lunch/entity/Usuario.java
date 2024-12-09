@@ -18,18 +18,18 @@ public class Usuario {
     private String correo;
 
     private String rol;
+
+    @Column(name = "preferencias_alimenticias")
     private String preferenciasAlimenticias;
+
+    @Column(name = "restricciones_dieteticas")
     private String restriccionesDieteticas;
+
+    @Column(name = "habitos_consumo")
     private String habitosConsumo;
 
     @Column(name = "is_active")
     private Boolean isActive;
-
-    @Column(name = "is_staff")
-    private Boolean isStaff;
-
-    @Column(name = "is_admin")
-    private Boolean isAdmin;
 
     @Column(name = "password_hash")
     private String passwordHash;
@@ -99,22 +99,6 @@ public class Usuario {
         this.isActive = isActive;
     }
 
-    public Boolean getIsStaff() {
-        return isStaff;
-    }
-
-    public void setIsStaff(Boolean isStaff) {
-        this.isStaff = isStaff;
-    }
-
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -122,6 +106,8 @@ public class Usuario {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+
 
     // Método que valida que el correo termine en @tecsup.edu.pe
     public void validarCorreo() {

@@ -1,5 +1,6 @@
 package com.tech.lunch.controller;
 
+import com.tech.lunch.entity.Categoria;
 import com.tech.lunch.entity.Usuario;
 import com.tech.lunch.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,20 @@ import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    // Obtener todos los usuarios
+    @GetMapping
+    public List<Usuario> obtenerTodosLosUsuarios() {
+        return usuarioService.obtenerTodosLosUsuarios();
+    }
 
     // Obtener un usuario por id
     @GetMapping("/{idInstitucional}")
