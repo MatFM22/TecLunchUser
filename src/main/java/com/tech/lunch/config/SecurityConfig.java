@@ -17,6 +17,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/usuarios/**").permitAll()  // Permite el acceso sin autenticación
+                        .requestMatchers("/api/usuarios/login").permitAll()  // Permitir acceso solo a esta ruta
                         .requestMatchers("/api/categorias/**").permitAll()
                         .requestMatchers("/api/items/**").permitAll()
                         .requestMatchers("/api/cartas/**").permitAll()

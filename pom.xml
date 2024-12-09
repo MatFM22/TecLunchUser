@@ -120,6 +120,7 @@
             <scope>provided</scope> <!-- Esto significa que Lombok se usa solo en tiempo de compilación -->
         </dependency>
 
+
     </dependencies>
 
     <build>

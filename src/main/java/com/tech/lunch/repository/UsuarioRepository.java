@@ -6,4 +6,5 @@ import com.tech.lunch.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
     // Aquí puedes agregar métodos personalizados si es necesario
     Usuario findByCorreo(String correo);
+    Usuario findByIdInstitucional(String idInstitucional);
 }

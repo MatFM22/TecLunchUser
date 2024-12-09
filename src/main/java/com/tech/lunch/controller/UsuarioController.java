@@ -1,5 +1,7 @@
 package com.tech.lunch.controller;
 
+import com.tech.lunch.dto.LoginRequest;
+import com.tech.lunch.dto.LoginResponse;
 import com.tech.lunch.entity.Categoria;
 import com.tech.lunch.entity.Usuario;
 import com.tech.lunch.service.UsuarioService;
@@ -67,6 +69,21 @@ public class UsuarioController {
     @DeleteMapping("/{idInstitucional}")
     public void deleteUsuario(@PathVariable String idInstitucional) {
         usuarioService.deleteUsuario(idInstitucional);
+    }
+
+    //LUNES09 NEW
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        // Validamos las credenciales
+        Usuario usuario = usuarioService.autenticarUsuario(loginRequest.getIdInstitucional(), loginRequest.getPassword());
+
+        if (usuario != null) {
+            // Si el usuario existe, devolvemos su rol
+            return ResponseEntity.ok(new LoginResponse("success", usuario.getRol()));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("error", "Credenciales inválidas"));
+        }
     }
 }
 

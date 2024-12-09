@@ -38,4 +38,15 @@ public class UsuarioService {
         usuarioRepository.deleteById(idInstitucional);
     }
 
+    //LUNES NEW
+    public Usuario autenticarUsuario(String idInstitucional, String password) {
+        Usuario usuario = usuarioRepository.findByIdInstitucional(idInstitucional);
+
+        if (usuario != null && usuario.getPasswordHash().equals(password)) {
+            // Aquí deberías agregar la lógica de hash de contraseñas en producción
+            return usuario;  // Si las credenciales son correctas, devolvemos el usuario
+        }
+        return null;  // Si no existe el usuario o la contraseña es incorrecta
+    }
+
 }
